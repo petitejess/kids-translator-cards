@@ -4,11 +4,18 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import ResultPage from "./pages/ResultPage";
+import "./styles/index."
+import Header from './components/Header';
+import Footer from './components/Footer';
+import HomePage from './pages/HomePage';
+import ResultPage from './pages/ResultPage';
+import { getClipart, getCountryFlagData, filterBadWords } from './utils/utils.js';
 
-import "./styles/index.scss";
 
 const App = () => {
+  // useEffect function with the flag API function
   useEffect(() => {
+
     fetch("https://country-facts.p.rapidapi.com/all", {
       method: "GET",
       headers: {
@@ -22,6 +29,12 @@ const App = () => {
       .catch((err) => {
         console.error(err);
       });
+
+    // getCountryFlagData();
+    getTranslation();
+    // getClipart();
+    // filterBadWords();
+
   }, []);
   return (
     <>
@@ -31,7 +44,9 @@ const App = () => {
       </Switch>
       <Footer />
     </>
+
   );
 };
 
-export default App;
+export default App
+
