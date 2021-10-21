@@ -7,14 +7,17 @@ import {
   InputLabel,
   TextareaAutosize,
   Button,
+  Container,
 } from "@mui/material";
 import { ThemeContext } from "@mui/styled-engine";
+import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 const useStyles = makeStyles((theme) => ({
   col: {
     textAlign: "center",
     justifyContent: "center",
-    height: "100%",
+    height: "70%",
     margin: "10px",
   },
   langSelect: {
@@ -32,23 +35,42 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
-    minHeight: "100%",
-    marginTop: "50px",
+    minHeight: "70%",
+    marginTop: "20px",
     marginBottom: "50px",
   },
   panel: {
     backgroundColor: "whitesmoke",
-    width: 500,
-    height: 400,
+    width: 300,
+    height: 500,
     margin: 10,
     marginTop: 150,
     padding: 30,
     border: "solid 1px gray",
   },
+  panelMini: {
+    backgroundColor: "none",
+    minWidth: 10,
+    height: 500,
+    margin: 10,
+    marginTop: 150,
+    padding: 30,
+    justifyContent: "center",
+    verticalAlign: "center",
+  },
   btn: {
-    backgroundColor: "green !important",
+    backgroundColor: "#16c92e !important",
     float: "right",
     marginTop: 420,
+    "&:hover": {
+      backgroundColor: "#42f5a7 !important",
+    },
+  },
+  arrow: {
+    color: "success !important",
+    fontSize: "3.5rem",
+    position: "center",
+    marginTop: "20vh",
   },
 }));
 
@@ -68,60 +90,76 @@ const HomePage = () => {
   // https://fabian7593.github.io/CountryAPI/
 
   return (
-    <div className={classes.section}>
-      <div className={classes.panel}>
-        <Typography variant="h5">From</Typography>
-        <InputLabel id="from-select-label"></InputLabel>
+    <Container>
+      <div className={classes.section}>
+        <div className={classes.panel}>
+          <Typography variant="h5">From</Typography>
+          <InputLabel id="from-select-label"></InputLabel>
 
-        <div>
-          <Select
-            className={classes.langSelect}
-            labelId="from-select-label"
-            id="from-select"
-            value={from}
-            label="From"
-            onChange={handleFromChange}
-          >
-            {languages.map((lang) => {
-              return <MenuItem value={lang}>{lang}</MenuItem>;
-            })}
-          </Select>
+          <div>
+            <Select
+              className={classes.langSelect}
+              labelId="from-select-label"
+              id="from-select"
+              value={from}
+              label="From"
+              onChange={handleFromChange}
+            >
+              {languages.map((lang) => {
+                return <MenuItem value={lang}>{lang}</MenuItem>;
+              })}
+            </Select>
+          </div>
+
+          <div>Flag</div>
+
+          <TextareaAutosize
+            className={classes.langTextArea}
+            aria-label="minimum height"
+            minRows={5}
+            placeholder="Enter Text"
+          />
         </div>
 
-        <TextareaAutosize
-          className={classes.langTextArea}
-          aria-label="minimum height"
-          minRows={5}
-          placeholder="Enter Text"
-        />
-      </div>
-      <div className={classes.panel}></div>
-      <div className={classes.panel}>
-        <Typography variant="h5">To</Typography>
-        <InputLabel id="from-select-label"></InputLabel>
-
-        <div>
-          <Select
-            className={classes.langSelect}
-            labelId="from-select-label"
-            id="from-select"
-            value={from}
-            label="From"
-            onChange={handleFromChange}
-          >
-            {languages.map((lang) => {
-              return <MenuItem value={lang}>{lang}</MenuItem>;
-            })}
-          </Select>
+        {/* Arrow Icon */}
+        <div className={classes.panelMini}>
+          <div className={classes.arrow}>
+            <DoubleArrowIcon />
+          </div>
         </div>
 
-        <div>Flag</div>
+        <div className={classes.panel}>
+          <Typography variant="h5">To</Typography>
+          <InputLabel id="from-select-label"></InputLabel>
+          <div>
+            <Select
+              className={classes.langSelect}
+              labelId="from-select-label"
+              id="from-select"
+              value={from}
+              label="From"
+              onChange={handleFromChange}
+            >
+              {languages.map((lang) => {
+                return <MenuItem value={lang}>{lang}</MenuItem>;
+              })}
+            </Select>
+          </div>
 
-        <Button variant="contained" className={classes.btn}>
-          Translate
-        </Button>
+          <div>Flag</div>
+
+          <Button
+            className={classes.btn}
+            onClick={() => console.log("you clicked me")}
+            type="submit"
+            variant="contained"
+            endIcon={<KeyboardArrowRightIcon />}
+          >
+            Translate
+          </Button>
+        </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

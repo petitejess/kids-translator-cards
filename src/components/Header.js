@@ -6,7 +6,7 @@ const useStyles = makeStyles({
   hero: {
     background:
       "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(/image/mario.jpg) no-repeat top center",
-    height: 300,
+    height: 400,
     display: "flex",
     justifyContent: "center",
     textAlign: "center",
@@ -38,14 +38,6 @@ function Header() {
   const classes = useStyles();
   return (
     <div className={classes.hero}>
-      {/* <div className={classes.header}>
-        <Button variant="contained" className={classes.headerButton}>
-          Login
-        </Button>
-        <Button variant="contained" className={classes.headerButton}>
-          Signup
-        </Button>
-      </div> */}
       <Grid container spacing={0}>
         <Grid item xs={2}></Grid>
         <Grid item xs={8}>
