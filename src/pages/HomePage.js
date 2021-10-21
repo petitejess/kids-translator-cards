@@ -12,6 +12,7 @@ import {
 import { ThemeContext } from "@mui/styled-engine";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import Header from "../components/Header";
 
 const useStyles = makeStyles((theme) => ({
   col: {
@@ -44,19 +45,19 @@ const useStyles = makeStyles((theme) => ({
     width: 300,
     height: 500,
     margin: 10,
-    marginTop: 150,
+    marginTop: 100,
     padding: 30,
     border: "solid 1px gray",
   },
   panelMini: {
-    backgroundColor: "none",
+    alignSelf: "center",
     minWidth: 10,
     height: 500,
     margin: 10,
-    marginTop: 150,
+    marginTop: 100,
     padding: 30,
-    justifyContent: "center",
-    verticalAlign: "center",
+    display: "grid",
+    placeItems: "center",
   },
   btn: {
     backgroundColor: "#16c92e !important",
@@ -69,8 +70,7 @@ const useStyles = makeStyles((theme) => ({
   arrow: {
     color: "success !important",
     fontSize: "3.5rem",
-    position: "center",
-    marginTop: "20vh",
+    margin: "auto",
   },
 }));
 
@@ -90,76 +90,79 @@ const HomePage = () => {
   // https://fabian7593.github.io/CountryAPI/
 
   return (
-    <Container>
-      <div className={classes.section}>
-        <div className={classes.panel}>
-          <Typography variant="h5">From</Typography>
-          <InputLabel id="from-select-label"></InputLabel>
+    <div>
+      <Header title={"Kids Translator Card"} />
+      <Container>
+        {/* Column left */}
+        <div className={classes.section}>
+          <div className={classes.panel}>
+            <Typography variant="h3">From</Typography>
+            <InputLabel id="from-select-label"></InputLabel>
 
-          <div>
-            <Select
-              className={classes.langSelect}
-              labelId="from-select-label"
-              id="from-select"
-              value={from}
-              label="From"
-              onChange={handleFromChange}
+            <div>
+              <Select
+                className={classes.langSelect}
+                labelId="from-select-label"
+                id="from-select"
+                value={from}
+                label="From"
+                onChange={handleFromChange}
+              >
+                {languages.map((lang) => {
+                  return <MenuItem value={lang}>{lang}</MenuItem>;
+                })}
+              </Select>
+            </div>
+
+            <div>Flag</div>
+
+            <TextareaAutosize
+              className={classes.langTextArea}
+              aria-label="minimum height"
+              minRows={5}
+              placeholder="Enter Text"
+            />
+          </div>
+
+          {/*  Column middle Arrow Icon */}
+          <div className={classes.panelMini}>
+            <DoubleArrowIcon className={classes.arrow} />
+          </div>
+
+          {/* Column right */}
+          <div className={classes.panel}>
+            <Typography variant="h3">To</Typography>
+            <InputLabel id="from-select-label"></InputLabel>
+            <div>
+              <Select
+                className={classes.langSelect}
+                labelId="from-select-label"
+                id="from-select"
+                value={from}
+                label="From"
+                onChange={handleFromChange}
+              >
+                {languages.map((lang) => {
+                  return <MenuItem value={lang}>{lang}</MenuItem>;
+                })}
+              </Select>
+            </div>
+
+            <div>Flag</div>
+
+            <Button
+              className={classes.btn}
+              onClick={() => console.log("you clicked me")}
+              type="submit"
+              variant="contained"
+              endIcon={<KeyboardArrowRightIcon />}
             >
-              {languages.map((lang) => {
-                return <MenuItem value={lang}>{lang}</MenuItem>;
-              })}
-            </Select>
-          </div>
-
-          <div>Flag</div>
-
-          <TextareaAutosize
-            className={classes.langTextArea}
-            aria-label="minimum height"
-            minRows={5}
-            placeholder="Enter Text"
-          />
-        </div>
-
-        {/* Arrow Icon */}
-        <div className={classes.panelMini}>
-          <div className={classes.arrow}>
-            <DoubleArrowIcon />
+              Translate
+            </Button>
           </div>
         </div>
-
-        <div className={classes.panel}>
-          <Typography variant="h5">To</Typography>
-          <InputLabel id="from-select-label"></InputLabel>
-          <div>
-            <Select
-              className={classes.langSelect}
-              labelId="from-select-label"
-              id="from-select"
-              value={from}
-              label="From"
-              onChange={handleFromChange}
-            >
-              {languages.map((lang) => {
-                return <MenuItem value={lang}>{lang}</MenuItem>;
-              })}
-            </Select>
-          </div>
-
-          <div>Flag</div>
-
-          <Button
-            className={classes.btn}
-            onClick={() => console.log("you clicked me")}
-            type="submit"
-            variant="contained"
-            endIcon={<KeyboardArrowRightIcon />}
-          >
-            Translate
-          </Button>
-        </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 };
 

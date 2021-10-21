@@ -34,7 +34,7 @@ const useStyles = makeStyles({
   },
 });
 
-function Header() {
+function Header({ title }) {
   const classes = useStyles();
   return (
     <div className={classes.hero}>
@@ -44,7 +44,7 @@ function Header() {
           <div className={classes.break}></div>
           <div className={classes.heroText}>
             <Typography align="center" variant="h2" component="div">
-              Kids Translator Cards
+              {title}
             </Typography>
           </div>
         </Grid>
