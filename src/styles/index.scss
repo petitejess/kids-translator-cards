@@ -1,3 +1,21 @@
 body {
+  height: 100%;
   margin: 0;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: center;
+}
+
+.columns {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.column-left,
+.column-middle,
+.column-right {
+  padding: 4em;
 }
