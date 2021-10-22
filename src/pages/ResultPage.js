@@ -53,7 +53,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ResultPage = () => {
+const ResultPage = ({ wordToTranslate }) => {
   const classes = useStyles();
   return (
     <>
@@ -62,7 +62,8 @@ const ResultPage = () => {
       <div className={classes.bigBox}>
         {/* Column left */}
         <Box className={classes.col} order="1" p={1} m={2}>
-          <Typography variant="h3">Original word</Typography>
+          {/* <Typography variant="h3">Original word</Typography> */}
+          <Typography variant="h3">{wordToTranslate}</Typography>
           <div>Flag</div>
         </Box>
 
