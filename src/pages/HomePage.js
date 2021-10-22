@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import {
   Select,
@@ -77,8 +77,45 @@ const useStyles = makeStyles((theme) => ({
 const HomePage = () => {
   // We need to useEffect here to call this API and populate the values
   // https://cloud.google.com/translate/docs/reference/rest/v2/languages
-  const [languages, setLanguages] = useState(["Vietnamese", "English"]);
-  const [from, setFrom] = useState("Vietnamese");
+  // Ok! :)
+  // useEffect(() => {
+  //   fetch("https://google-translate1.p.rapidapi.com/language/translate/v2/languages", {
+  //     "method": "GET",
+  //     "headers": {
+  //       "accept-encoding": "application/gzip",
+  //       "x-rapidapi-host": "google-translate1.p.rapidapi.com",
+  //       "x-rapidapi-key": "b4096686a4msh43536491990dcd7p1cbadcjsnf3dbd6782036"
+  //     }
+  //   })
+  //   .then(response => response.json())
+  //   .then(data => console.log(JSON.stringify(data)))
+  //   .catch(err => {
+  //     console.error(err);
+  //   });
+  // }, []);
+
+  // Use data from json file so I don't exceed the quota again XD
+  useEffect(() => {
+    fetch('availableLanguages.json', {
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      setLanguages(data.data.languages.map(lang => lang["language"]));
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  }, []);
+
+  // const [languages, setLanguages] = useState(["Vietnamese", "English"]);
+  const [languages, setLanguages] = useState(['vi', 'en']);
+  // const [from, setFrom] = useState("Vietnamese");
+  const [from, setFrom] = useState('vi');
+  const [isLoaded, setIsLoaded] = useState(false);
   const classes = useStyles();
 
   const handleFromChange = (e) => {
@@ -88,6 +125,7 @@ const HomePage = () => {
 
   // For the flags you may be able to use this
   // https://fabian7593.github.io/CountryAPI/
+  // Thank you! But the API url is currently down :(
 
   return (
     <div>
@@ -99,22 +137,24 @@ const HomePage = () => {
             <Typography variant="h3">From</Typography>
             <InputLabel id="from-select-label"></InputLabel>
 
-            <div>
-              <Select
-                className={classes.langSelect}
-                labelId="from-select-label"
-                id="from-select"
-                value={from}
-                label="From"
-                onChange={handleFromChange}
-              >
-                {languages.map((lang) => {
-                  return <MenuItem value={lang}>{lang}</MenuItem>;
-                })}
-              </Select>
-            </div>
-
-            <div>Flag</div>
+            {languages &&
+            <>
+              <div>
+                <Select
+                  className={classes.langSelect}
+                  labelId="from-select-label"
+                  id="from-select"
+                  value={from}
+                  label="From"
+                  onChange={handleFromChange}
+                >
+                  {languages.map(lang =>
+                    <MenuItem key={lang} value={lang}>{lang}</MenuItem>
+                  )}
+                </Select>
+              </div>
+              <div>Flag</div>
+            </>}
 
             <TextareaAutosize
               className={classes.langTextArea}
@@ -133,6 +173,8 @@ const HomePage = () => {
           <div className={classes.panel}>
             <Typography variant="h3">To</Typography>
             <InputLabel id="from-select-label"></InputLabel>
+
+            {languages &&
             <div>
               <Select
                 className={classes.langSelect}
@@ -142,12 +184,12 @@ const HomePage = () => {
                 label="From"
                 onChange={handleFromChange}
               >
-                {languages.map((lang) => {
-                  return <MenuItem value={lang}>{lang}</MenuItem>;
-                })}
+                {languages.map(lang =>
+                  <MenuItem key={lang} value={lang}>{lang}</MenuItem>
+                )}
               </Select>
-            </div>
-
+              {}
+            </div>}
             <div>Flag</div>
 
             <Button

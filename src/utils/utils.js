@@ -60,9 +60,9 @@
 // };
 
 // export the above functions
-export {
+// export {
     // getCountryFlagData,
     // getClipart,
     // filterBadWords,
-    getTranslation
-};
+    // getTranslation
+// };
