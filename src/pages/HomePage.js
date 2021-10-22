@@ -10,7 +10,7 @@ import {
   Button,
   Container,
 } from "@mui/material";
-import { ThemeContext } from "@mui/styled-engine";
+// import { ThemeContext } from "@mui/styled-engine";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import Header from "../components/Header";
@@ -108,23 +108,27 @@ const HomePage = ({ setWordToTranslate }) => {
     })
     .then(response => response.json())
     .then(data => {
-      setLanguages(data.data.languages.map(lang => lang["language"]));
+      setLanguages(data.text.map(lang => lang["language"]));
     })
     .catch(err => {
       console.error(err);
     });
   }, []);
 
-  // const [languages, setLanguages] = useState(["Vietnamese", "English"]);
-  const [languages, setLanguages] = useState(['vi', 'en']);
-  // const [from, setFrom] = useState("Vietnamese");
-  const [from, setFrom] = useState('vi');
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [languages, setLanguages] = useState(["Vietnamese", "English"]);
+  const [from, setFrom] = useState("Vietnamese");
+  const [to, setTo] = useState("English");
+  // const [isLoaded, setIsLoaded] = useState(false);
   const classes = useStyles();
 
   const handleFromChange = (e) => {
     console.log("From Changed: " + e.target.value);
     setFrom(e.target.value);
+  };
+
+  const handleToChange = (e) => {
+    console.log("To Changed: " + e.target.value);
+    setTo(e.target.value);
   };
 
   // For the flags you may be able to use this
@@ -189,17 +193,17 @@ const HomePage = ({ setWordToTranslate }) => {
             {/* Column right */}
             <div className={classes.panel}>
               <Typography variant="h3">To</Typography>
-              <InputLabel id="from-select-label"></InputLabel>
+              <InputLabel id="to-select-label"></InputLabel>
 
               {languages &&
               <div>
                 <Select
                   className={classes.langSelect}
-                  labelId="from-select-label"
-                  id="from-select"
-                  value={from}
-                  label="From"
-                  onChange={handleFromChange}
+                  labelId="to-select-label"
+                  id="to-select"
+                  value={to}
+                  label="To"
+                  onChange={handleToChange}
                 >
                   {languages.map(lang =>
                     <MenuItem key={lang} value={lang}>{lang}</MenuItem>
