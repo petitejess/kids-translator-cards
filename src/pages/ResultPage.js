@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import Header from "../components/Header";
 import { Button, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
-import Stack from "@mui/material/Stack";
+// import Stack from "@mui/material/Stack";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import SaveIcon from "@mui/icons-material/Save";
 
@@ -53,11 +53,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ResultPage = ({ wordToTranslate }) => {
+const ResultPage = ({ wordToTranslate, wordImageUrl }) => {
   const classes = useStyles();
   return (
     <>
-      <Header title={"Put your word result value here"} />
+      <Header title={"Put your word result value here"} bgImageUrl={wordImageUrl} />
 
       <div className={classes.bigBox}>
         {/* Column left */}

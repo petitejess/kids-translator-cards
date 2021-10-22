@@ -9,34 +9,17 @@ import "./styles/index.scss";
 
 
 const App = () => {
-  const [wordToTranslate, setWordToTranslate] = useState('');
+  const initialWord = "flower";
+  const [wordToTranslate, setWordToTranslate] = useState(initialWord);
+  const [wordImageUrl, setWordImageUrl] = useState(initialWord);
 
-  // useEffect function with the flag API function
   useEffect(() => {
-
-    // For the flags you may be able to use this
-    // https://fabian7593.github.io/CountryAPI/
-
-    // fetch("https://country-facts.p.rapidapi.com/all", {
-    //   method: "GET",
-    //   headers: {
-    //     "x-rapidapi-host": "country-facts.p.rapidapi.com",
-    //     "x-rapidapi-key": "fb95cae4c5mshcc1e2ab58d6091dp189153jsne2344d05a8f7",
-    //   },
-    // })
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //   });
-
-    // getCountryFlagData();
-    // getTranslation();
-    // getClipart();
-    // filterBadWords();
-
-  }, []);
+    fetch(`https://pixabay.com/api/?key=23980639-82f3019418c4f0fe6e840a327&q=${wordToTranslate}&image_type=illustration`)
+      .then(response => response.json())
+      .then(data => setWordImageUrl(data.hits[0].pageURL))
+      .catch(err => console.log(err));
+  }, [wordToTranslate]);
+  
   return (
     <>
       <Switch>
@@ -44,7 +27,7 @@ const App = () => {
           <HomePage setWordToTranslate={setWordToTranslate} />
         </Route>
         <Route exact path="/result">
-          <ResultPage wordToTranslate={wordToTranslate} />
+          <ResultPage wordToTranslate={wordToTranslate} wordImageUrl={wordImageUrl} />
         </Route>
       </Switch>
       <Footer />
