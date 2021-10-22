@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 // import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -9,6 +9,8 @@ import "./styles/index.scss";
 
 
 const App = () => {
+  const [wordToTranslate, setWordToTranslate] = useState('');
+
   // useEffect function with the flag API function
   useEffect(() => {
 
@@ -38,8 +40,12 @@ const App = () => {
   return (
     <>
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/result" component={ResultPage} />
+        <Route exact path="/">
+          <HomePage setWordToTranslate={setWordToTranslate} />
+        </Route>
+        <Route exact path="/result">
+          <ResultPage wordToTranslate={wordToTranslate} />
+        </Route>
       </Switch>
       <Footer />
     </>

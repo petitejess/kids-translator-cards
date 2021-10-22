@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import {
   Select,
@@ -13,6 +14,7 @@ import { ThemeContext } from "@mui/styled-engine";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import Header from "../components/Header";
+import { formatInput } from "../utils/utils";
 
 const useStyles = makeStyles((theme) => ({
   col: {
@@ -74,7 +76,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HomePage = () => {
+const HomePage = ({ setWordToTranslate }) => {
+  const history = useHistory();
+
   // We need to useEffect here to call this API and populate the values
   // https://cloud.google.com/translate/docs/reference/rest/v2/languages
   // Ok! :)
@@ -127,18 +131,67 @@ const HomePage = () => {
   // https://fabian7593.github.io/CountryAPI/
   // Thank you! But the API url is currently down :(
 
+  const handleChangeWordInput = (e) => {
+    // Trim and take only the first word lowercase
+    let userInput = formatInput(e.target.value);
+    setWordToTranslate(userInput);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    history.push('/result');
+  };
+
   return (
     <div>
       <Header title={"Kids Translator Card"} />
       <Container>
-        {/* Column left */}
-        <div className={classes.section}>
-          <div className={classes.panel}>
-            <Typography variant="h3">From</Typography>
-            <InputLabel id="from-select-label"></InputLabel>
+        <form autoComplete="off" onSubmit={handleSubmit}>
+          {/* Column left */}
+          <div className={classes.section}>
+            <div className={classes.panel}>
+              <Typography variant="h3">From</Typography>
+              <InputLabel id="from-select-label"></InputLabel>
 
-            {languages &&
-            <>
+              {languages &&
+              <>
+                <div>
+                  <Select
+                    className={classes.langSelect}
+                    labelId="from-select-label"
+                    id="from-select"
+                    value={from}
+                    label="From"
+                    onChange={handleFromChange}
+                  >
+                    {languages.map(lang =>
+                      <MenuItem key={lang} value={lang}>{lang}</MenuItem>
+                    )}
+                  </Select>
+                </div>
+                <div>Flag</div>
+              </>}
+
+              <TextareaAutosize
+                className={classes.langTextArea}
+                aria-label="minimum height"
+                minRows={5}
+                placeholder="Enter Text"
+                onChange={handleChangeWordInput}
+              />
+            </div>
+
+            {/*  Column middle Arrow Icon */}
+            <div className={classes.panelMini}>
+              <DoubleArrowIcon className={classes.arrow} />
+            </div>
+
+            {/* Column right */}
+            <div className={classes.panel}>
+              <Typography variant="h3">To</Typography>
+              <InputLabel id="from-select-label"></InputLabel>
+
+              {languages &&
               <div>
                 <Select
                   className={classes.langSelect}
@@ -152,57 +205,21 @@ const HomePage = () => {
                     <MenuItem key={lang} value={lang}>{lang}</MenuItem>
                   )}
                 </Select>
-              </div>
+                {}
+              </div>}
               <div>Flag</div>
-            </>}
 
-            <TextareaAutosize
-              className={classes.langTextArea}
-              aria-label="minimum height"
-              minRows={5}
-              placeholder="Enter Text"
-            />
-          </div>
-
-          {/*  Column middle Arrow Icon */}
-          <div className={classes.panelMini}>
-            <DoubleArrowIcon className={classes.arrow} />
-          </div>
-
-          {/* Column right */}
-          <div className={classes.panel}>
-            <Typography variant="h3">To</Typography>
-            <InputLabel id="from-select-label"></InputLabel>
-
-            {languages &&
-            <div>
-              <Select
-                className={classes.langSelect}
-                labelId="from-select-label"
-                id="from-select"
-                value={from}
-                label="From"
-                onChange={handleFromChange}
+              <Button
+                className={classes.btn}
+                type="submit"
+                variant="contained"
+                endIcon={<KeyboardArrowRightIcon />}
               >
-                {languages.map(lang =>
-                  <MenuItem key={lang} value={lang}>{lang}</MenuItem>
-                )}
-              </Select>
-              {}
-            </div>}
-            <div>Flag</div>
-
-            <Button
-              className={classes.btn}
-              onClick={() => console.log("you clicked me")}
-              type="submit"
-              variant="contained"
-              endIcon={<KeyboardArrowRightIcon />}
-            >
-              Translate
-            </Button>
+                Translate
+              </Button>
+            </div>
           </div>
-        </div>
+        </form>
       </Container>
     </div>
   );

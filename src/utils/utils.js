@@ -59,10 +59,15 @@
 //     });
 // };
 
+const formatInput = (input) => {
+  return input.trim().split(" ")[0].toLowerCase();
+};
+
 // export the above functions
-// export {
+export {
     // getCountryFlagData,
     // getClipart,
     // filterBadWords,
-    // getTranslation
-// };
+    // getTranslation,
+    formatInput
+};
