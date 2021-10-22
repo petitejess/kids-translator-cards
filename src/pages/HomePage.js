@@ -148,7 +148,7 @@ const HomePage = ({ setWordToTranslate }) => {
 
   return (
     <div>
-      <Header title={"Kids Translator Card"} />
+      <Header title={"Kids Translator Card"} bgImageUrl="/image/mario.jpg" />
       <Container>
         <form autoComplete="off" onSubmit={handleSubmit}>
           {/* Column left */}
