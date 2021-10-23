@@ -1,0 +1,18 @@
+[
+  {
+    "languages": [
+      {
+        "country": "Britain",
+        "countryCode": "GB",
+        "language": "English",
+        "languageCode": "en"
+      },
+      {
+        "country": "Japan",
+        "countryCode": "JP",
+        "language": "Japanese",
+        "languageCode": "ja"
+      }
+    ]
+  }
+]

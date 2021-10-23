@@ -13,6 +13,7 @@ import { ThemeContext } from "@mui/styled-engine";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import Header from "../components/Header";
+import Flag from "../components/Flag";
 
 const useStyles = makeStyles((theme) => ({
   col: {
@@ -98,7 +99,6 @@ const HomePage = () => {
           <div className={classes.panel}>
             <Typography variant="h3">From</Typography>
             <InputLabel id="from-select-label"></InputLabel>
-
             <div>
               <Select
                 className={classes.langSelect}
@@ -113,9 +113,8 @@ const HomePage = () => {
                 })}
               </Select>
             </div>
-
-            <div>Flag</div>
-
+            {/* <div>Flag</div> */}
+            <Flag countryCode="en" />
             <TextareaAutosize
               className={classes.langTextArea}
               aria-label="minimum height"
