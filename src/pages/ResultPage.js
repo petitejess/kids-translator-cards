@@ -1,4 +1,4 @@
-import qs, { stringify } from "qs";
+import qs from "qs";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
@@ -71,28 +71,6 @@ const ResultPage = ({ wordToTranslate }) => {
   }, [wordToTranslate]);
 
   useEffect(() => {
-    // fetch("https://google-translate1.p.rapidapi.com/language/translate/v2", {
-    //   "method": "POST",
-    //   "headers": {
-    //     "content-type": "application/x-www-form-urlencoded",
-    //     "accept-encoding": "application/gzip",
-    //     "x-rapidapi-host": "google-translate1.p.rapidapi.com",
-    //     "x-rapidapi-key": "b4096686a4msh43536491990dcd7p1cbadcjsnf3dbd6782036"
-    //   },
-    //   "body": {
-    //     "q": "Hello, world!",
-    //     "target": "es",
-    //     "source": "en"
-    //   }
-    // })
-    // .then(response => {
-    //   console.log(response);
-    // })
-    // .catch(err => {
-    //   console.error(err);
-    // });
-
-
     axios.request({
       method: 'POST',
       url: 'https://google-translate1.p.rapidapi.com/language/translate/v2',
