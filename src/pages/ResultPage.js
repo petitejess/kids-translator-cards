@@ -1,4 +1,6 @@
-// import React, { useState } from "react";
+// import qs from "qs";
+// import axios from "axios";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import { Button, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
@@ -53,8 +55,63 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ResultPage = ({ wordToTranslate, wordImageUrl }) => {
+const ResultPage = ({ wordToTranslate }) => {
   const classes = useStyles();
+  const [translateResult, setTranslateResult] = useState('');
+  
+  const [wordImageUrl, setWordImageUrl] = useState('');
+
+  useEffect(() => {
+    fetch(`https://pixabay.com/api/?key=23980639-82f3019418c4f0fe6e840a327&q=${wordToTranslate}&image_type=illustration`)
+      .then(response => response.json())
+      .then(data => {console.log(data); setWordImageUrl(data.hits[0].previewURL);})
+      .catch(err => console.log(err));
+    
+    // setWordImageUrl('/image/mario.jpg');
+  }, [wordToTranslate]);
+
+  // useEffect(() => {
+    // fetch("https://google-translate1.p.rapidapi.com/language/translate/v2", {
+    //   "method": "POST",
+    //   "headers": {
+    //     "content-type": "application/x-www-form-urlencoded",
+    //     "accept-encoding": "application/gzip",
+    //     "x-rapidapi-host": "google-translate1.p.rapidapi.com",
+    //     "x-rapidapi-key": "b4096686a4msh43536491990dcd7p1cbadcjsnf3dbd6782036"
+    //   },
+    //   "body": {
+    //     "q": "Hello, world!",
+    //     "target": "es",
+    //     "source": "en"
+    //   }
+    // })
+    // .then(response => {
+    //   console.log(response);
+    // })
+    // .catch(err => {
+    //   console.error(err);
+    // });
+
+
+    // axios.request({
+    //   method: 'POST',
+    //   url: 'https://google-translate1.p.rapidapi.com/language/translate/v2',
+    //   data: qs.stringify({
+    //     q: "Hello, world!",
+    //     source: "en",
+    //     target: "es"
+    //   }),
+    //   headers: {
+    //     "content-type": "application/x-www-form-urlencoded",
+    //     "accept-encoding": "application/gzip",
+    //     "x-rapidapi-host": "google-translate1.p.rapidapi.com",
+    //     "x-rapidapi-key": "b4096686a4msh43536491990dcd7p1cbadcjsnf3dbd6782036"
+    //   }
+    // })
+    //   .then(response => console.log(response))
+    //   .catch(err => console.log(err));
+  // }, []);
+
   return (
     <>
       <Header title={"Put your word result value here"} bgImageUrl={wordImageUrl} />
