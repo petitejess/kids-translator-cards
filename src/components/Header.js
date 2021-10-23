@@ -44,7 +44,7 @@ function Header({ title, bgImageUrl }) {
 
   return (
     <div className={classes.hero} style={{ backgroundImage: `url(${backgroundImageUrl})` }}>
-      <h2>Image URL: {backgroundImageUrl}</h2>
+      {/* <h2>Image URL: {backgroundImageUrl}</h2> */}
       <Grid container spacing={0}>
         <Grid item xs={2}></Grid>
         <Grid item xs={8}>
