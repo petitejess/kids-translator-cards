@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import { Typography, Grid } from "@mui/material";
 
 const useStyles = makeStyles({
   hero: {
     background:
-      "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(/image/mario.jpg) no-repeat top center",
+      "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), no-repeat top center",
     height: 400,
     display: "flex",
     justifyContent: "center",
@@ -34,10 +34,17 @@ const useStyles = makeStyles({
   },
 });
 
-function Header({ title }) {
+function Header({ title, bgImageUrl }) {
+  const [backgroundImageUrl, setBackgroundImageUrl] = useState('url(/image/mario.jpg)');
   const classes = useStyles();
+
+  useEffect(() => {
+    bgImageUrl && setBackgroundImageUrl(bgImageUrl);
+  }, [bgImageUrl]);
+
   return (
-    <div className={classes.hero}>
+    <div className={classes.hero} style={{ backgroundImage: `url(${backgroundImageUrl})` }}>
+      {/* <h2>Image URL: {backgroundImageUrl}</h2> */}
       <Grid container spacing={0}>
         <Grid item xs={2}></Grid>
         <Grid item xs={8}>
