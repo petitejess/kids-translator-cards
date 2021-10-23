@@ -1,6 +1,7 @@
 import qs from "qs";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import Header from "../components/Header";
 import { Button, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
@@ -58,6 +59,7 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
   const classes = useStyles();
   const [translateResult, setTranslateResult] = useState('');
   const [imageQuery, setImageQuery] = useState('');
+  const history = useHistory();
 
   const translateApiOption = (wordToTranslate, translateFrom, translateTo) => {
     return ({
@@ -88,6 +90,10 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
         ? setImageQuery(translateResult)
         : translateApiOption(wordToTranslate, translateFrom, "en") && setImageQuery(translateResult);
   }, [wordToTranslate, translateFrom, translateTo, translateResult]);
+
+  const handleResultOnClick = () => {
+    history.push('/');
+  };
 
   return (
     <>
@@ -120,7 +126,7 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
       <div className={classes.btnContainer}>
         <Button
           className={classes.btn}
-          onClick={() => console.log("you clicked me")}
+          onClick={handleResultOnClick}
           variant="contained"
           color="error"
           startIcon={<RestartAltIcon />}
