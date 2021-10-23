@@ -11,14 +11,6 @@ import "./styles/index.scss";
 const App = () => {
   const initialWord = "flower";
   const [wordToTranslate, setWordToTranslate] = useState(initialWord);
-  const [wordImageUrl, setWordImageUrl] = useState(initialWord);
-
-  useEffect(() => {
-    fetch(`https://pixabay.com/api/?key=23980639-82f3019418c4f0fe6e840a327&q=${wordToTranslate}&image_type=illustration`)
-      .then(response => response.json())
-      .then(data => setWordImageUrl(data.hits[0].pageURL))
-      .catch(err => console.log(err));
-  }, [wordToTranslate]);
   
   return (
     <>
@@ -27,7 +19,7 @@ const App = () => {
           <HomePage setWordToTranslate={setWordToTranslate} />
         </Route>
         <Route exact path="/result">
-          <ResultPage wordToTranslate={wordToTranslate} wordImageUrl={wordImageUrl} />
+          <ResultPage wordToTranslate={wordToTranslate} />
         </Route>
       </Switch>
       <Footer />
@@ -36,5 +28,4 @@ const App = () => {
   );
 };
 
-export default App
-
+export default App;
