@@ -151,7 +151,7 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
     // Send the language code back to App to send to Result Page
     setTranslateFrom(fromLang[0]["code"]);
     setTranslateTo(toLang[0]["code"]);
-    
+
     history.push('/result');
   };
 
@@ -178,7 +178,7 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
                     onChange={handleFromChange}
                   >
                     {languages.map(lang =>
-                      <MenuItem key={lang["code"]} value={lang["language"]}>{lang["language"]}</MenuItem>
+                      <MenuItem key={`${lang["code"]}`} value={lang["language"]}>{lang["language"]}</MenuItem>
                     )}
                   </Select>
                 </div>
@@ -215,7 +215,7 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
                   onChange={handleToChange}
                 >
                   {languages.map(lang =>
-                    <MenuItem key={lang["code"]} value={lang["language"]}>{lang["language"]}</MenuItem>
+                    <MenuItem key={`${lang["code"]}`} value={lang["language"]}>{lang["language"]}</MenuItem>
                   )}
                 </Select>
                 {}
