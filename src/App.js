@@ -9,17 +9,26 @@ import "./styles/index.scss";
 
 
 const App = () => {
-  const initialWord = "flower";
-  const [wordToTranslate, setWordToTranslate] = useState(initialWord);
+  const [wordToTranslate, setWordToTranslate] = useState('');
+  const [translateFrom, setTranslateFrom] = useState('');
+  const [translateTo, setTranslateTo] = useState('');
   
   return (
     <>
       <Switch>
         <Route exact path="/">
-          <HomePage setWordToTranslate={setWordToTranslate} />
+          <HomePage
+            setWordToTranslate={setWordToTranslate}
+            setTranslateFrom={setTranslateFrom}
+            setTranslateTo={setTranslateTo}
+          />
         </Route>
         <Route exact path="/result">
-          <ResultPage wordToTranslate={wordToTranslate} />
+          <ResultPage
+            wordToTranslate={wordToTranslate}
+            translateFrom={translateFrom}
+            translateTo={translateTo}
+          />
         </Route>
       </Switch>
       <Footer />

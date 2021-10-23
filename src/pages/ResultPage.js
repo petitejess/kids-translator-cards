@@ -6,7 +6,6 @@ import { Button, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
-// import Stack from "@mui/material/Stack";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import SaveIcon from "@mui/icons-material/Save";
 
@@ -55,7 +54,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ResultPage = ({ wordToTranslate }) => {
+const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
   const classes = useStyles();
   const [translateResult, setTranslateResult] = useState('');
   
@@ -68,16 +67,17 @@ const ResultPage = ({ wordToTranslate }) => {
     //   .catch(err => console.log(err));
     
     setWordImageUrl('/image/mario.jpg');
-  }, [wordToTranslate]);
 
-  useEffect(() => {
+    console.log(translateFrom);
+    console.log(translateTo);
+
     axios.request({
       method: 'POST',
       url: 'https://google-translate1.p.rapidapi.com/language/translate/v2',
       data: qs.stringify({
-        q: "Hello, world!",
-        source: "en",
-        target: "es"
+        q: `${wordToTranslate}`,
+        source: `${translateFrom}`,
+        target: `${translateTo}`
       }),
       headers: {
         "content-type": "application/x-www-form-urlencoded",
@@ -86,9 +86,9 @@ const ResultPage = ({ wordToTranslate }) => {
         "x-rapidapi-key": "b4096686a4msh43536491990dcd7p1cbadcjsnf3dbd6782036"
       }
     })
-      .then(response => console.log(response))
+      .then(response => setTranslateResult(response.data.data.translations[0].translatedText))
       .catch(err => console.log(err));
-  }, []);
+  }, [wordToTranslate]);
 
   return (
     <>
@@ -97,7 +97,6 @@ const ResultPage = ({ wordToTranslate }) => {
       <div className={classes.bigBox}>
         {/* Column left */}
         <Box className={classes.col} order="1" p={1} m={2}>
-          {/* <Typography variant="h3">Original word</Typography> */}
           <Typography variant="h3">{wordToTranslate}</Typography>
           <div>Flag</div>
         </Box>
@@ -109,7 +108,7 @@ const ResultPage = ({ wordToTranslate }) => {
 
         {/* Column right */}
         <Box className={classes.col} order="3" p={1} m={2}>
-          <Typography variant="h3">Word</Typography>
+          <Typography variant="h3">{translateResult}</Typography>
           <div>Flag</div>
         </Box>
       </div>
