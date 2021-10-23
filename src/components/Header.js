@@ -34,17 +34,21 @@ const useStyles = makeStyles({
   },
 });
 
-function Header({ title, bgImageUrl }) {
-  const [backgroundImageUrl, setBackgroundImageUrl] = useState('url(/image/mario.jpg)');
+function Header({ title, imageQuery }) {
+  const [wordImageUrl, setWordImageUrl] = useState('/image/mario.jpg');
+
   const classes = useStyles();
 
   useEffect(() => {
-    bgImageUrl && setBackgroundImageUrl(bgImageUrl);
-  }, [bgImageUrl]);
+    imageQuery &&
+    fetch(`https://pixabay.com/api/?key=23980639-82f3019418c4f0fe6e840a327&q=${imageQuery}&image_type=illustration`)
+    .then(response => response.json())
+    .then(data => data.hits.length > 0 && setWordImageUrl(data.hits[0].previewURL))
+    .catch(err => console.log(err));
+  }, [imageQuery]);
 
   return (
-    <div className={classes.hero} style={{ backgroundImage: `url(${backgroundImageUrl})` }}>
-      {/* <h2>Image URL: {backgroundImageUrl}</h2> */}
+    <div className={classes.hero} style={{ backgroundImage: `url(${wordImageUrl})` }}>
       <Grid container spacing={0}>
         <Grid item xs={2}></Grid>
         <Grid item xs={8}>

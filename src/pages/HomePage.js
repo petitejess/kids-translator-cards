@@ -118,7 +118,6 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
   const [languages, setLanguages] = useState(["Vietnamese", "English"]);
   const [from, setFrom] = useState("Vietnamese");
   const [to, setTo] = useState("English");
-  // const [isLoaded, setIsLoaded] = useState(false);
   const classes = useStyles();
 
   const handleFromChange = (e) => {
@@ -157,7 +156,7 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
 
   return (
     <div>
-      <Header title={"Kids Translator Card"} bgImageUrl="/image/mario.jpg" />
+      <Header title={"Kids Translator Card"} imageQuery="" />
       <Container>
         <form autoComplete="off" onSubmit={handleSubmit}>
           {/* Column left */}
@@ -205,22 +204,23 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
               <InputLabel id="to-select-label"></InputLabel>
 
               {languages &&
-              <div>
-                <Select
-                  className={classes.langSelect}
-                  labelId="to-select-label"
-                  id="to-select"
-                  value={to}
-                  label="To"
-                  onChange={handleToChange}
-                >
-                  {languages.map(lang =>
-                    <MenuItem key={`${lang["code"]}`} value={lang["language"]}>{lang["language"]}</MenuItem>
-                  )}
-                </Select>
-                {}
-              </div>}
-              <div>Flag</div>
+              <>
+                <div>
+                  <Select
+                    className={classes.langSelect}
+                    labelId="to-select-label"
+                    id="to-select"
+                    value={to}
+                    label="To"
+                    onChange={handleToChange}
+                  >
+                    {languages.map(lang =>
+                      <MenuItem key={`${lang["code"]}`} value={lang["language"]}>{lang["language"]}</MenuItem>
+                    )}
+                  </Select>
+                </div>
+                <div>Flag</div>
+              </>}
 
               <Button
                 className={classes.btn}
