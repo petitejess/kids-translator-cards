@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HomePage = ({ setWordToTranslate }) => {
+const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
   const history = useHistory();
 
   // We need to useEffect here to call this API and populate the values
@@ -109,7 +109,7 @@ const HomePage = ({ setWordToTranslate }) => {
     })
     .then(response => response.json())
     .then(data => {
-      setLanguages(data.text.map(lang => lang["language"]));
+      setLanguages(data.text);
     })
     .catch(err => {
       console.error(err);
@@ -119,7 +119,6 @@ const HomePage = ({ setWordToTranslate }) => {
   const [languages, setLanguages] = useState(["Vietnamese", "English"]);
   const [from, setFrom] = useState("Vietnamese");
   const [to, setTo] = useState("English");
-  // const [isLoaded, setIsLoaded] = useState(false);
   const classes = useStyles();
 
   const handleFromChange = (e) => {
@@ -144,12 +143,21 @@ const HomePage = ({ setWordToTranslate }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Map language name back to code
+    const fromLang = languages.filter(lang => lang["language"] === from);
+    const toLang = languages.filter(lang => lang["language"] === to);
+
+    // Send the language code back to App to send to Result Page
+    setTranslateFrom(fromLang[0]["code"]);
+    setTranslateTo(toLang[0]["code"]);
+
     history.push('/result');
   };
 
   return (
     <div>
-      <Header title={"Kids Translator Card"} bgImageUrl="/image/mario.jpg" />
+      <Header title={"Kids Translator Card"} imageQuery="" />
       <Container>
 <<<<<<< HEAD
         {/* Column left */}
@@ -200,7 +208,7 @@ const HomePage = ({ setWordToTranslate }) => {
                     onChange={handleFromChange}
                   >
                     {languages.map(lang =>
-                      <MenuItem key={lang} value={lang}>{lang}</MenuItem>
+                      <MenuItem key={`${lang["code"]}`} value={lang["language"]}>{lang["language"]}</MenuItem>
                     )}
                   </Select>
                 </div>
@@ -208,6 +216,7 @@ const HomePage = ({ setWordToTranslate }) => {
               </>}
 
               <TextareaAutosize
+                required
                 className={classes.langTextArea}
                 aria-label="minimum height"
                 minRows={5}
@@ -228,22 +237,23 @@ const HomePage = ({ setWordToTranslate }) => {
 >>>>>>> 8e1032ba87b84401d5e48e3f067d46e902cd2d83
 
               {languages &&
-              <div>
-                <Select
-                  className={classes.langSelect}
-                  labelId="to-select-label"
-                  id="to-select"
-                  value={to}
-                  label="To"
-                  onChange={handleToChange}
-                >
-                  {languages.map(lang =>
-                    <MenuItem key={lang} value={lang}>{lang}</MenuItem>
-                  )}
-                </Select>
-                {}
-              </div>}
-              <div>Flag</div>
+              <>
+                <div>
+                  <Select
+                    className={classes.langSelect}
+                    labelId="to-select-label"
+                    id="to-select"
+                    value={to}
+                    label="To"
+                    onChange={handleToChange}
+                  >
+                    {languages.map(lang =>
+                      <MenuItem key={`${lang["code"]}`} value={lang["language"]}>{lang["language"]}</MenuItem>
+                    )}
+                  </Select>
+                </div>
+                <div>Flag</div>
+              </>}
 
               <Button
                 className={classes.btn}
