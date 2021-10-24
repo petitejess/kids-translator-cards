@@ -185,6 +185,7 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
               </>}
 
               <TextareaAutosize
+                required
                 className={classes.langTextArea}
                 aria-label="minimum height"
                 minRows={5}
