@@ -9,7 +9,6 @@ import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import Flag from "../components/Flag";
 
 const useStyles = makeStyles(() => ({
   bigBox: {
@@ -64,11 +63,10 @@ const useStyles = makeStyles(() => ({
 
 const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
   const classes = useStyles();
+  const history = useHistory();
   const [translateResult, setTranslateResult] = useState("");
   const [imageQuery, setImageQuery] = useState("");
   const [languages, setLanguages] = useState([]);
-  const history = useHistory();
-  const [languages, setLanguages] = useState(["Vietnamese", "English"]);
 
   // const translateApiOption = (wordToTranslate, translateFrom, translateTo) => {
   //   return {
