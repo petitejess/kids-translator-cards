@@ -68,26 +68,25 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
   const [imageQuery, setImageQuery] = useState("");
   const [languages, setLanguages] = useState([]);
 
-  // const translateApiOption = (wordToTranslate, translateFrom, translateTo) => {
-  //   return {
-  //     method: "POST",
-  //     url: "https://google-translate1.p.rapidapi.com/language/translate/v2",
-  //     data: qs.stringify({
-  //       q: `${wordToTranslate}`,
-  //       source: `${translateFrom}`,
-  //       target: `${translateTo}`,
-  //     }),
-  //     headers: {
-  //       "content-type": "application/x-www-form-urlencoded",
-  //       "accept-encoding": "application/gzip",
-  //       "x-rapidapi-host": "google-translate1.p.rapidapi.com",
-  //       "x-rapidapi-key": "1acf301addmsh1cf3ba4f25f1c0dp10e434jsn0c3fee614769",
-  //     },
-  //   };
-  // };
+  const translateApiOption = (wordToTranslate, translateFrom, translateTo) => {
+    return {
+      method: "POST",
+      url: "https://google-translate1.p.rapidapi.com/language/translate/v2",
+      data: qs.stringify({
+        q: `${wordToTranslate}`,
+        source: `${translateFrom}`,
+        target: `${translateTo}`,
+      }),
+      headers: {
+        "content-type": "application/x-www-form-urlencoded",
+        "accept-encoding": "application/gzip",
+        "x-rapidapi-host": "google-translate1.p.rapidapi.com",
+        "x-rapidapi-key": "1acf301addmsh1cf3ba4f25f1c0dp10e434jsn0c3fee614769",
+      },
+    };
+  };
 
   useEffect(() => {
-
     fetch("availableLanguages.json", {
       headers: {
         "Content-Type": "application/json",
@@ -104,23 +103,23 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
 
     languages.length > 0 && console.log(languages);
 
-    // axios
-    //   .request(translateApiOption(wordToTranslate, translateFrom, translateTo))
-    //   .then((response) =>
-    //     setTranslateResult(response.data.data.translations[0].translatedText)
-    //   )
-    //   .catch((err) => console.log(err));
+    axios
+      .request(translateApiOption(wordToTranslate, translateFrom, translateTo))
+      .then((response) =>
+        setTranslateResult(response.data.data.translations[0].translatedText)
+      )
+      .catch((err) => console.log(err));
 
-    // translateResult && translateFrom === "en"
-    //   ? setImageQuery(wordToTranslate)
-    //   : translateTo === "en"
-    //   ? setImageQuery(translateResult)
-    //   : translateApiOption(wordToTranslate, translateFrom, "en") &&
-    //     setImageQuery(translateResult);
+    translateResult && translateFrom === "en"
+      ? setImageQuery(wordToTranslate)
+      : translateTo === "en"
+      ? setImageQuery(translateResult)
+      : translateApiOption(wordToTranslate, translateFrom, "en") &&
+        setImageQuery(translateResult);
 
-    // Use the below to save the API calls
-    setTranslateResult("chicken");
-    setImageQuery("chicken");
+    // // Use the below to save the API calls
+    // setTranslateResult("chicken");
+    // setImageQuery("chicken");
   }, [wordToTranslate, translateFrom, translateTo, translateResult]);
 
   const handleResultOnClick = () => {
