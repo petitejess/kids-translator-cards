@@ -12,10 +12,10 @@ import {
 } from "@mui/material";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import Filter from "bad-words";
 import Header from "../components/Header";
 import Flag from "../components/Flag";
 import { formatInput } from "../utils/utils";
-import Filter from "bad-words";
 
 const useStyles = makeStyles((theme) => ({
   col: {
@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
 const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
   const classes = useStyles();
   const history = useHistory();
-  const filter = new Filter();
+  const wordFilter = new Filter();
   const [languages, setLanguages] = useState(["Vietnamese", "English"]);
   const [from, setFrom] = useState("Vietnamese");
   const [to, setTo] = useState("English");
@@ -115,7 +115,7 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
   const handleChangeWordInput = (e) => {
     // Trim and take only the first word lowercase
     let userInput = formatInput(e.target.value);
-    setWordToTranslate(filter.clean(userInput));
+    userInput && setWordToTranslate(wordFilter.clean(userInput));
   };
 
   const handleSubmit = (e) => {
