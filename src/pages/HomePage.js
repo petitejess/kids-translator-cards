@@ -168,6 +168,7 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
                 </>
               )}
 
+              {/* Get the Flag from What Language select */}
               <div>
                 <Flag languageName={from} />
               </div>

@@ -9,7 +9,7 @@ import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import SaveIcon from "@mui/icons-material/Save";
+import Flag from "../components/Flag";
 
 const useStyles = makeStyles(() => ({
   bigBox: {
@@ -54,6 +54,12 @@ const useStyles = makeStyles(() => ({
     width: 100,
     margin: "0px 10px 0px 10px !important",
   },
+  flagImage: {
+    display: "inline-block",
+    maxHeight: "150px",
+    width: "auto",
+    margin: "0 auto",
+  },
 }));
 
 const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
@@ -62,6 +68,7 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
   const [imageQuery, setImageQuery] = useState("");
   const [languages, setLanguages] = useState([]);
   const history = useHistory();
+  const [languages, setLanguages] = useState(["Vietnamese", "English"]);
 
   // const translateApiOption = (wordToTranslate, translateFrom, translateTo) => {
   //   return {
@@ -135,6 +142,8 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
           <Flag languageName={languages.filter((lang) => lang["code"] === translateFrom)[0]["language"]} />}
         </Box>
 
+        {/* <h2>{console.log(languages)}</h2> */}
+
         {/* Column middle */}
         <Box className={classes.middle} order="2" p={1} m={2}>
           <DoubleArrowIcon className={classes.arrow} />
@@ -148,10 +157,6 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
         </Box>
       </div>
 
-      {/* Explaination text-box */}
-      <Box className={classes.expText}>
-        <Typography variant="h6">Explaination</Typography>
-      </Box>
       {/* Button by the end */}
       <div className={classes.btnContainer}>
         <Button
@@ -162,16 +167,6 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
           startIcon={<RestartAltIcon />}
         >
           Restart
-        </Button>
-
-        <Button
-          className={classes.btn}
-          onClick={() => console.log("you clicked me")}
-          variant="contained"
-          color="secondary"
-          startIcon={<SaveIcon />}
-        >
-          Save
         </Button>
       </div>
     </>
