@@ -5,7 +5,6 @@ import HomePage from "./pages/HomePage";
 import ResultPage from "./pages/ResultPage";
 import "./styles/index.scss";
 
-
 const App = () => {
   const [wordToTranslate, setWordToTranslate] = useState('');
   const [translateFrom, setTranslateFrom] = useState('');
@@ -31,7 +30,6 @@ const App = () => {
       </Switch>
       <Footer />
     </>
-
   );
 };
 

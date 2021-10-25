@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Header from "../components/Header";
+import Flag from "../components/Flag";
 import { Button, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
@@ -65,6 +66,7 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
   const classes = useStyles();
   const [translateResult, setTranslateResult] = useState("");
   const [imageQuery, setImageQuery] = useState("");
+  const [languages, setLanguages] = useState([]);
   const history = useHistory();
   const [languages, setLanguages] = useState(["Vietnamese", "English"]);
 
@@ -87,19 +89,23 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
   // };
 
   useEffect(() => {
+
     fetch("availableLanguages.json", {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
     })
-      .then((response) => response.json())
-      .then((data) => {
-        setLanguages(data.text);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    .then((response) => response.json())
+    .then((data) => {
+      setLanguages(data.text);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+    languages.length > 0 && console.log(languages);
+
     // axios
     //   .request(translateApiOption(wordToTranslate, translateFrom, translateTo))
     //   .then((response) =>
@@ -107,15 +113,16 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
     //   )
     //   .catch((err) => console.log(err));
 
-    // setTranslateResult("chicken");
-    // setImageQuery("chicken");
-
     // translateResult && translateFrom === "en"
     //   ? setImageQuery(wordToTranslate)
     //   : translateTo === "en"
     //   ? setImageQuery(translateResult)
-    //   // : translateApiOption(wordToTranslate, translateFrom, "en") &&
+    //   : translateApiOption(wordToTranslate, translateFrom, "en") &&
     //     setImageQuery(translateResult);
+
+    // Use the below to save the API calls
+    setTranslateResult("chicken");
+    setImageQuery("chicken");
   }, [wordToTranslate, translateFrom, translateTo, translateResult]);
 
   const handleResultOnClick = () => {
@@ -130,20 +137,9 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
         {/* Column left */}
         <Box className={classes.col} order="1" p={1} m={2}>
           <Typography variant="h3">{wordToTranslate}</Typography>
-          <div>
-            {console.log(
-              "I'm here",
-              languages.filter((lang) => lang["code"] === "en")
-            )}
 
-            {/* <Flag
-              languageName={
-                languages.filter((lang) => lang["code"] === translateFrom)[
-                  "language"
-                ]
-              }
-            /> */}
-          </div>
+          {translateFrom && languages.length > 0 &&
+          <Flag languageName={languages.filter((lang) => lang["code"] === translateFrom)[0]["language"]} />}
         </Box>
 
         {/* <h2>{console.log(languages)}</h2> */}
@@ -156,10 +152,8 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
         {/* Column right */}
         <Box className={classes.col} order="3" p={1} m={2}>
           <Typography variant="h3">{translateResult}</Typography>
-          <div>Flag</div>
-          <div>
-            <Flag languageName={translateTo} />
-          </div>
+
+          {translateTo && languages.length > 0 && <Flag languageName={languages.filter((lang) => lang["code"] === translateTo)[0]["language"]} />}
         </Box>
       </div>
 
