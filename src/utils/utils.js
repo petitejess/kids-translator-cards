@@ -37,6 +37,32 @@
 //     });
 // };
 
+function getClipart() {
+  const url = new URL(
+    "https://apiv1.designious.com/api/files/search"
+  );
+
+  let params = {
+    "keyword": "*",
+    "folder": "Designious/SVG/Nature",
+    "per_page": "1",
+    "page": "1",
+  };
+  Object.keys(params)
+    .forEach(key => url.searchParams.append(key, params[key]));
+
+  let headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+  };
+
+  fetch(url, {
+    method: "GET",
+    headers,
+  }).then(response => response.json());
+};
+
 // // create filterBadWords function with API code
 // function filterBadWords() {
 //     fetch("https://neutrinoapi-bad-word-filter.p.rapidapi.com/bad-word-filter", {
@@ -66,7 +92,7 @@ const formatInput = (input) => {
 // export the above functions
 export {
     // getCountryFlagData,
-    // getClipart,
+    getClipart,
     // filterBadWords,
     // getTranslation,
     formatInput

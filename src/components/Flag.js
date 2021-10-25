@@ -1,23 +1,17 @@
 import React, { useState, useEffect } from "react";
 
-const Flag = ({ countryCode }) => {
+const Flag = ({ languageName }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [completeData, setCompleteData] = useState([]);
-  const [flagImgUrl, setFlagImgUrl] = useState("");
-
+  const [flagIcon, setFlagIcon] = useState("");
   useEffect(() => {
+    setFlagIcon(languageName.toLowerCase());
     // Get flag image
-    fetch("https://country-facts.p.rapidapi.com/all", {
-      method: "GET",
-      headers: {
-        "x-rapidapi-host": "country-facts.p.rapidapi.com",
-        "x-rapidapi-key": "b4096686a4msh43536491990dcd7p1cbadcjsnf3dbd6782036",
-      },
-    })
+    fetch(`https://restcountries.com/v3.1/lang/${flagIcon}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        // setCompleteData(data);
+        setCompleteData(data[0].flag);
+        console.log(data[0].flag);
         setIsLoaded(true);
       })
       .catch((err) => {
@@ -25,23 +19,9 @@ const Flag = ({ countryCode }) => {
       });
   }, []);
 
-  return (
-    <div>
-      {/* {isLoaded && countryCode && (
-        <img
-          src={
-            completeData.filter((country) => country.cca2 === countryCode)[0]
-              .flag
-          }
-          alt="Country Flag"
-          style={{ width: "30px" }}
-        />
-      )} */}
-    </div>
-  );
+  !isLoaded && setIsLoaded(true);
+
+  return <div>{languageName && <div>{completeData}</div>}</div>;
 };
-//     </div>
-//   );
-// };
 
 export default Flag;

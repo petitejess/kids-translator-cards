@@ -16,6 +16,10 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import Header from "../components/Header";
 import Flag from "../components/Flag";
 import { formatInput } from "../utils/utils";
+import Filter from "bad-words";
+
+let filter = new Filter();
+console.log(filter.clean("Don't be an ash0le"));
 
 const useStyles = makeStyles((theme) => ({
   col: {
@@ -101,19 +105,19 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
 
   // Use data from json file so I don't exceed the quota again XD
   useEffect(() => {
-    fetch('availableLanguages.json', {
-      headers : { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
+    fetch("availableLanguages.json", {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
     })
-    .then(response => response.json())
-    .then(data => {
-      setLanguages(data.text);
-    })
-    .catch(err => {
-      console.error(err);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        setLanguages(data.text);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   const [languages, setLanguages] = useState(["Vietnamese", "English"]);
@@ -138,57 +142,28 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
   const handleChangeWordInput = (e) => {
     // Trim and take only the first word lowercase
     let userInput = formatInput(e.target.value);
-    setWordToTranslate(userInput);
+    setWordToTranslate(filter.clean(userInput));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Map language name back to code
-    const fromLang = languages.filter(lang => lang["language"] === from);
-    const toLang = languages.filter(lang => lang["language"] === to);
+    const fromLang = languages.filter((lang) => lang["language"] === from);
+    const toLang = languages.filter((lang) => lang["language"] === to);
 
     // Send the language code back to App to send to Result Page
     setTranslateFrom(fromLang[0]["code"]);
     setTranslateTo(toLang[0]["code"]);
 
-    history.push('/result');
+    history.push("/result");
   };
 
   return (
     <div>
       <Header title={"Kids Translator Card"} imageQuery="" />
+
       <Container>
-<<<<<<< HEAD
-        {/* Column left */}
-        <div className={classes.section}>
-          <div className={classes.panel}>
-            <Typography variant="h3">From</Typography>
-            <InputLabel id="from-select-label"></InputLabel>
-            <div>
-              <Select
-                className={classes.langSelect}
-                labelId="from-select-label"
-                id="from-select"
-                value={from}
-                label="From"
-                onChange={handleFromChange}
-              >
-                {languages.map((lang) => {
-                  return <MenuItem value={lang}>{lang}</MenuItem>;
-                })}
-              </Select>
-            </div>
-            {/* <div>Flag</div> */}
-            <Flag countryCode="en" />
-            <TextareaAutosize
-              className={classes.langTextArea}
-              aria-label="minimum height"
-              minRows={5}
-              placeholder="Enter Text"
-            />
-          </div>
-=======
         <form autoComplete="off" onSubmit={handleSubmit}>
           {/* Column left */}
           <div className={classes.section}>
@@ -196,24 +171,32 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
               <Typography variant="h3">From</Typography>
               <InputLabel id="from-select-label"></InputLabel>
 
-              {languages &&
-              <>
-                <div>
-                  <Select
-                    className={classes.langSelect}
-                    labelId="from-select-label"
-                    id="from-select"
-                    value={from}
-                    label="From"
-                    onChange={handleFromChange}
-                  >
-                    {languages.map(lang =>
-                      <MenuItem key={`${lang["code"]}`} value={lang["language"]}>{lang["language"]}</MenuItem>
-                    )}
-                  </Select>
-                </div>
-                <div>Flag</div>
-              </>}
+              {languages && (
+                <>
+                  <div>
+                    <Select
+                      className={classes.langSelect}
+                      labelId="from-select-label"
+                      id="from-select"
+                      value={from}
+                      label="From"
+                      onChange={handleFromChange}
+                    >
+                      {languages.map((lang) => (
+                        <MenuItem
+                          key={`${lang["code"]}`}
+                          value={lang["language"]}
+                        >
+                          {lang["language"]}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </div>
+                  <div>
+                    <Flag languageName={from} />
+                  </div>
+                </>
+              )}
 
               <TextareaAutosize
                 required
@@ -234,26 +217,31 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
             <div className={classes.panel}>
               <Typography variant="h3">To</Typography>
               <InputLabel id="to-select-label"></InputLabel>
->>>>>>> 8e1032ba87b84401d5e48e3f067d46e902cd2d83
 
-              {languages &&
-              <>
-                <div>
-                  <Select
-                    className={classes.langSelect}
-                    labelId="to-select-label"
-                    id="to-select"
-                    value={to}
-                    label="To"
-                    onChange={handleToChange}
-                  >
-                    {languages.map(lang =>
-                      <MenuItem key={`${lang["code"]}`} value={lang["language"]}>{lang["language"]}</MenuItem>
-                    )}
-                  </Select>
-                </div>
-                <div>Flag</div>
-              </>}
+              {languages && (
+                <>
+                  <div>
+                    <Select
+                      className={classes.langSelect}
+                      labelId="to-select-label"
+                      id="to-select"
+                      value={to}
+                      label="To"
+                      onChange={handleToChange}
+                    >
+                      {languages.map((lang) => (
+                        <MenuItem
+                          key={`${lang["code"]}`}
+                          value={lang["language"]}
+                        >
+                          {lang["language"]}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </div>
+                  <div>Flag</div>
+                </>
+              )}
 
               <Button
                 className={classes.btn}
