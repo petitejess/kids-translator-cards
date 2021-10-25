@@ -1,73 +1,69 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) using the basic template.
+# FX1 Sydney React Hackathon 2021: Kids Translator Cards
 
-## What's in the basic template?
-- It includes node-sass, and a style.scss (and removes all .css files)
-- It doesn't use serviceWorker
-- It replaces the react favicon with a flower of life icon
+>
+> Live app link: [https://kids-translator-cards.netlify.app/](https://kids-translator-cards.netlify.app/)
+>
 
-## Available Scripts
+&nbsp;  
 
-In the project directory, you can run:
+## Purpose
 
-### `yarn start`
+Simple web app built with React, where kids can translate words from many languages. 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+&nbsp;  
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## User Interface
 
-### `yarn test`
+The layout of the web app is designed for children to easily use. The images displayed are in a form of illustrations.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The homepage has two cards, one for the source language of the word that is to be translated and another one for the target language.
 
-### `yarn build`
+The available languages can be selected from the **dropdown boxes**, and the word to be translated can be entered into the **input field** on the source language card.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+An image of a **flag** of a country or one of the countries that speaks the language will be shown under the dropdown box according to the selected language option.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+A **Translate button** on the target language card will display the **Result view**. On the Result view, the original word, source country flag will be displayed on the source language card. The translated word and target country flag will be displayed on the target language card, as well as in the **Header** section. The **background image** in the Header section would also change to represent the word.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+At the bottom of the Result page, there is a **Restart button** that will bring the user back to homepage.
 
-### `yarn eject`
+&nbsp;  
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## How The App Works
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+On the homepage, the app will receive 3 inputs for the *source language* and the *word to be translated*, as well as the *target language*. These values are tracked as states in the App level.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+*Available languages* data come from a static JSON file that contains language names and codes that matches Google Translate API.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The *images of the flags* are derived from results fetched through API (https://github.com/apilayer/restcountries).
 
-## Learn More
+The user input, entered through the text input field, will be trimmed and only the *first word* will be taken for translation. The word then will be checked using *bad-words filter* (node package) to censor any inappropriate words.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Once user click the Translate button on the homepage, the values set on the homepage will be brought back to App to be passed onto Result view to be processed.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Once the word is filtered, it will be used as a parameter, along with the languages codes, for Google Translate API to translate it to the target language on the Result view.
 
-### Code Splitting
+The word would always have the *English translation* which then be used as a parameter for Pixabay API to get an image related to the word (also with *safesearch* parameter set to *true*). The image will be used to replace the background image in the Header section.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+&nbsp;  
 
-### Analyzing the Bundle Size
+## Third Party Services
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+APIs or packages used in this app:
+- For translation: Google Translate API through RapidAPI (https://rapidapi.com/googlecloud/api/google-translate1/)
+- For flag images: REST Countries API (https://github.com/apilayer/restcountries)
+- For bad words filter: bad-words node package (https://github.com/web-mech/badwords)
+- For translation result images: Pixabay API (https://pixabay.com/api/docs/)
 
-### Making a Progressive Web App
+**Material UI** is used to style the app.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+This app is deployed on **Netlify**.
 
-### Advanced Configuration
+**Trello** is used for team management tool.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+&nbsp;  
 
-### Deployment
+## Acknowledgement
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+[Ana](https://github.com/aplazarevska), [Jessica](https://github.com/petitejess) and [Vicky](https://github.com/pduong987) would like to thank Alex H, our (awesome, as always) educator, for his support through out this project. Also, special thanks for Mohammad, our classmate, for his help with the quick fixes on the web app.
 
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Thank you Adam, Alex, Grace and Brie for being our biggest inspiration! We dedicate this project to our families and all the Moms in the world, thank you for your hard work! You are super!
