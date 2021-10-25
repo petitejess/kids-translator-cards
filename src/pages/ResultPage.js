@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Header from "../components/Header";
+import Flag from "../components/Flag";
 import { Button, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
@@ -59,43 +60,62 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
   const classes = useStyles();
   const [translateResult, setTranslateResult] = useState("");
   const [imageQuery, setImageQuery] = useState("");
+  const [languages, setLanguages] = useState([]);
   const history = useHistory();
 
-  const translateApiOption = (wordToTranslate, translateFrom, translateTo) => {
-    return {
-      method: "POST",
-      url: "https://google-translate1.p.rapidapi.com/language/translate/v2",
-      data: qs.stringify({
-        q: `${wordToTranslate}`,
-        source: `${translateFrom}`,
-        target: `${translateTo}`,
-      }),
-      headers: {
-        "content-type": "application/x-www-form-urlencoded",
-        "accept-encoding": "application/gzip",
-        "x-rapidapi-host": "google-translate1.p.rapidapi.com",
-        "x-rapidapi-key": "1acf301addmsh1cf3ba4f25f1c0dp10e434jsn0c3fee614769",
-      },
-    };
-  };
+  // const translateApiOption = (wordToTranslate, translateFrom, translateTo) => {
+  //   return {
+  //     method: "POST",
+  //     url: "https://google-translate1.p.rapidapi.com/language/translate/v2",
+  //     data: qs.stringify({
+  //       q: `${wordToTranslate}`,
+  //       source: `${translateFrom}`,
+  //       target: `${translateTo}`,
+  //     }),
+  //     headers: {
+  //       "content-type": "application/x-www-form-urlencoded",
+  //       "accept-encoding": "application/gzip",
+  //       "x-rapidapi-host": "google-translate1.p.rapidapi.com",
+  //       "x-rapidapi-key": "1acf301addmsh1cf3ba4f25f1c0dp10e434jsn0c3fee614769",
+  //     },
+  //   };
+  // };
 
   useEffect(() => {
-    axios
-      .request(translateApiOption(wordToTranslate, translateFrom, translateTo))
-      .then((response) =>
-        setTranslateResult(response.data.data.translations[0].translatedText)
-      )
-      .catch((err) => console.log(err));
 
-    // setTranslateResult("chicken");
-    // setImageQuery("chicken");
+    fetch("availableLanguages.json", {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      setLanguages(data.text);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 
-    translateResult && translateFrom === "en"
-      ? setImageQuery(wordToTranslate)
-      : translateTo === "en"
-      ? setImageQuery(translateResult)
-      : translateApiOption(wordToTranslate, translateFrom, "en") &&
-        setImageQuery(translateResult);
+    languages.length > 0 && console.log(languages);
+
+    // axios
+    //   .request(translateApiOption(wordToTranslate, translateFrom, translateTo))
+    //   .then((response) =>
+    //     setTranslateResult(response.data.data.translations[0].translatedText)
+    //   )
+    //   .catch((err) => console.log(err));
+
+    // translateResult && translateFrom === "en"
+    //   ? setImageQuery(wordToTranslate)
+    //   : translateTo === "en"
+    //   ? setImageQuery(translateResult)
+    //   : translateApiOption(wordToTranslate, translateFrom, "en") &&
+    //     setImageQuery(translateResult);
+
+    // Use the below to save the API calls
+    setTranslateResult("chicken");
+    setImageQuery("chicken");
   }, [wordToTranslate, translateFrom, translateTo, translateResult]);
 
   const handleResultOnClick = () => {
@@ -110,7 +130,9 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
         {/* Column left */}
         <Box className={classes.col} order="1" p={1} m={2}>
           <Typography variant="h3">{wordToTranslate}</Typography>
-          <div>Flag</div>
+
+          {translateFrom && languages.length > 0 &&
+          <Flag languageName={languages.filter((lang) => lang["code"] === translateFrom)[0]["language"]} />}
         </Box>
 
         {/* Column middle */}
@@ -121,7 +143,8 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
         {/* Column right */}
         <Box className={classes.col} order="3" p={1} m={2}>
           <Typography variant="h3">{translateResult}</Typography>
-          <div>Flag</div>
+
+          {translateTo && languages.length > 0 && <Flag languageName={languages.filter((lang) => lang["code"] === translateTo)[0]["language"]} />}
         </Box>
       </div>
 

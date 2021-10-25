@@ -10,16 +10,12 @@ import {
   Button,
   Container,
 } from "@mui/material";
-// import { ThemeContext } from "@mui/styled-engine";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import Header from "../components/Header";
 import Flag from "../components/Flag";
 import { formatInput } from "../utils/utils";
 import Filter from "bad-words";
-
-let filter = new Filter();
-console.log(filter.clean("Don't be an ash0le"));
 
 const useStyles = makeStyles((theme) => ({
   col: {
@@ -82,26 +78,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
+  const classes = useStyles();
   const history = useHistory();
-
-  // We need to useEffect here to call this API and populate the values
-  // https://cloud.google.com/translate/docs/reference/rest/v2/languages
-  // Ok! :)
-  // useEffect(() => {
-  //   fetch("https://google-translate1.p.rapidapi.com/language/translate/v2/languages", {
-  //     "method": "GET",
-  //     "headers": {
-  //       "accept-encoding": "application/gzip",
-  //       "x-rapidapi-host": "google-translate1.p.rapidapi.com",
-  //       "x-rapidapi-key": "b4096686a4msh43536491990dcd7p1cbadcjsnf3dbd6782036"
-  //     }
-  //   })
-  //   .then(response => response.json())
-  //   .then(data => console.log(JSON.stringify(data)))
-  //   .catch(err => {
-  //     console.error(err);
-  //   });
-  // }, []);
+  const filter = new Filter();
+  const [languages, setLanguages] = useState(["Vietnamese", "English"]);
+  const [from, setFrom] = useState("Vietnamese");
+  const [to, setTo] = useState("English");
 
   // Use data from json file so I don't exceed the quota again XD
   useEffect(() => {
@@ -111,19 +93,14 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
         Accept: "application/json",
       },
     })
-      .then((response) => response.json())
-      .then((data) => {
-        setLanguages(data.text);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    .then((response) => response.json())
+    .then((data) => {
+      setLanguages(data.text);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   }, []);
-
-  const [languages, setLanguages] = useState(["Vietnamese", "English"]);
-  const [from, setFrom] = useState("Vietnamese");
-  const [to, setTo] = useState("English");
-  const classes = useStyles();
 
   const handleFromChange = (e) => {
     console.log("From Changed: " + e.target.value);
@@ -134,10 +111,6 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
     console.log("To Changed: " + e.target.value);
     setTo(e.target.value);
   };
-
-  // For the flags you may be able to use this
-  // https://fabian7593.github.io/CountryAPI/
-  // Thank you! But the API url is currently down :(
 
   const handleChangeWordInput = (e) => {
     // Trim and take only the first word lowercase
