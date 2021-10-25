@@ -15,6 +15,10 @@ import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import Header from "../components/Header";
 import { formatInput } from "../utils/utils";
+import Filter from "bad-words";
+
+let filter = new Filter();
+console.log(filter.clean("Don't be an ash0le"));
 
 const useStyles = makeStyles((theme) => ({
   col: {
@@ -137,8 +141,10 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
   const handleChangeWordInput = (e) => {
     // Trim and take only the first word lowercase
     let userInput = formatInput(e.target.value);
-    setWordToTranslate(userInput);
+    setWordToTranslate(filter.clean(userInput));
   };
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
