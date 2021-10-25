@@ -4,24 +4,19 @@ const Flag = ({ countryCode }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   // const [completeData, setCompleteData] = useState([]);
 
-  // useEffect(() => {
-  //   // Get flag image
-  //   fetch("https://country-facts.p.rapidapi.com/all", {
-  //     "method": "GET",
-  //     "headers": {
-  //       "x-rapidapi-host": "country-facts.p.rapidapi.com",
-  //       "x-rapidapi-key": "b4096686a4msh43536491990dcd7p1cbadcjsnf3dbd6782036"
-  //     }
-  //   })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     setCompleteData(data);
-  //     setIsLoaded(true);
-  //   })
-  //   .catch(err => {
-  //     console.error(err);
-  //   });
-  // }, []);
+  useEffect(() => {
+    // Get flag image
+    fetch("https://restcountries.eu/rest/v2/lang/es")
+    .then(response => response.json())
+    .then(data => {
+      // setCompleteData(data);
+      console.log(data);
+      setIsLoaded(true);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  }, []);
 
   !isLoaded && setIsLoaded(true);
 
