@@ -81,7 +81,7 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
         "content-type": "application/x-www-form-urlencoded",
         "accept-encoding": "application/gzip",
         "x-rapidapi-host": "google-translate1.p.rapidapi.com",
-        "x-rapidapi-key": "1acf301addmsh1cf3ba4f25f1c0dp10e434jsn0c3fee614769",
+        "x-rapidapi-key": "d30b4172b7msh84a3ff6e92409d8p14e22fjsn168c933d772a",
       },
     };
   };

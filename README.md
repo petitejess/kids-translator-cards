@@ -1,4 +1,4 @@
-# FX1 Sydney React Hackathon 2021: Kids' Translator Cards
+# FX1 Sydney React Hackathon 2021: Kids Translator Cards
 
 >
 > Live app link: [https://kids-translator-cards.netlify.app/](https://kids-translator-cards.netlify.app/)
@@ -64,4 +64,6 @@ This app is deployed on **Netlify**.
 
 ## Acknowledgement
 
-[Ana](https://github.com/aplazarevska), [Jessica](https://github.com/petitejess) and [Vicky](https://github.com/pduong987) would like to thank Alex H, our  (awesome, as always) educator, for his support through out this project. Also, special thanks for Mohammad, our classmate, for his help with the quick fixes on the web app.
+[Ana](https://github.com/aplazarevska), [Jessica](https://github.com/petitejess) and [Vicky](https://github.com/pduong987) would like to thank Alex H, our (awesome, as always) educator, for his support through out this project. Also, special thanks for Mohammad, our classmate, for his help with the quick fixes on the web app.
+
+Thank you Adam, Alex, Grace and Brie for being our biggest inspiration! We dedicate this project to our families and all the Moms in the world, thank you for your hard work! You are super!
