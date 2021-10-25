@@ -7,8 +7,8 @@ import Flag from "../components/Flag";
 import { Button, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
-import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const useStyles = makeStyles(() => ({
   bigBox: {
@@ -58,6 +58,21 @@ const useStyles = makeStyles(() => ({
     maxHeight: "150px",
     width: "auto",
     margin: "0 auto",
+  },
+  panel: {
+    backgroundColor: "whitesmoke",
+    width: 300,
+    minHeight: 400,
+    margin: 10,
+    marginTop: 100,
+    padding: 30,
+    border: "solid 1px gray",
+    justifyContent: "center",
+    textAlign: "center",
+  },
+  spacer: {
+    display: "block",
+    height: 40,
   },
 }));
 
@@ -130,8 +145,11 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
 
       <div className={classes.bigBox}>
         {/* Column left */}
-        <Box className={classes.col} order="1" p={1} m={2}>
+        <Box className={classes.panel} order="1" p={6} m={2}>
           <Typography variant="h3">{wordToTranslate}</Typography>
+
+          <div className={classes.spacer}></div>
+          <div className={classes.spacer}></div>
 
           {translateFrom && languages.length > 0 && (
             <Flag
@@ -148,12 +166,20 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
 
         {/* Column middle */}
         <Box className={classes.middle} order="2" p={1} m={2}>
-          <DoubleArrowIcon className={classes.arrow} />
+          <div className={classes.panelMini}>
+            <ArrowForwardIcon
+              sx={{ height: 100, width: 100, color: "#16c92e " }}
+              className={classes.arrow}
+            />
+          </div>
         </Box>
 
         {/* Column right */}
-        <Box className={classes.col} order="3" p={1} m={2}>
+        <Box className={classes.panel} order="3" p={6} m={2}>
           <Typography variant="h3">{translateResult}</Typography>
+
+          <div className={classes.spacer}></div>
+          <div className={classes.spacer}></div>
 
           {translateTo && languages.length > 0 && (
             <Flag

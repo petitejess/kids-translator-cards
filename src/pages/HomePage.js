@@ -10,8 +10,8 @@ import {
   Button,
   Container,
 } from "@mui/material";
-import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Filter from "bad-words";
 import Header from "../components/Header";
 import Flag from "../components/Flag";
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: "center",
     minWidth: 10,
     height: 500,
-    margin: 10,
+    margin: 100,
     marginTop: 100,
     padding: 30,
     display: "grid",
@@ -187,8 +187,12 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
             </div>
 
             {/*  Column middle Arrow Icon */}
+
             <div className={classes.panelMini}>
-              <DoubleArrowIcon className={classes.arrow} />
+              <ArrowForwardIcon
+                sx={{ height: 100, width: 100, color: "#16c92e " }}
+                className={classes.arrow}
+              />
             </div>
 
             {/* Column right */}
