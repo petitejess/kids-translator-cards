@@ -10,7 +10,6 @@ const useStyles = makeStyles({
   },
 });
 const Flag = ({ languageName }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
   const [completeData, setCompleteData] = useState([]);
   const classes = useStyles();
 
@@ -18,18 +17,17 @@ const Flag = ({ languageName }) => {
   useEffect(() => {
     // Get flag image
     fetch(`https://restcountries.com/v3.1/lang/${languageName.toLowerCase()}`)
-      .then((response) => response.json())
-      .then((data) => {
-        // setCompleteData(data[0].flag);
-        setCompleteData(data[0].flags.png);
-        console.log(data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      languageName === "English"
+      ? setCompleteData(data[57].flags.png)
+      : setCompleteData(data[0].flags.png);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   }, [languageName]);
-
-  !isLoaded && setIsLoaded(true);
 
   return (
     <div style={{ textAlign: "center" }}>

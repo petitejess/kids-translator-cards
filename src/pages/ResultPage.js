@@ -101,8 +101,6 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
       console.error(err);
     });
 
-    languages.length > 0 && console.log(languages);
-
     axios
       .request(translateApiOption(wordToTranslate, translateFrom, translateTo))
       .then((response) =>
@@ -121,6 +119,8 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
     // setTranslateResult("chicken");
     // setImageQuery("chicken");
   }, [wordToTranslate, translateFrom, translateTo, translateResult]);
+
+  console.log(translateResult);
 
   const handleResultOnClick = () => {
     history.push("/");
