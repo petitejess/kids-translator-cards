@@ -16,8 +16,6 @@ const Flag = ({ languageName }) => {
 
   // Get flag image
   useEffect(() => {
-    console.log(languageName);
-
     // Get flag image
     fetch(`https://restcountries.com/v3.1/lang/${languageName.toLowerCase()}`)
       .then((response) => response.json())
