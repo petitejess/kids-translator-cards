@@ -192,12 +192,12 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
                       ))}
                     </Select>
                   </div>
-                  <div>
-                    <Flag languageName={from} />
-                  </div>
                 </>
               )}
 
+              <div>
+                <Flag languageName={from} />
+              </div>
               <TextareaAutosize
                 required
                 className={classes.langTextArea}
@@ -239,9 +239,12 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
                       ))}
                     </Select>
                   </div>
-                  <div>Flag</div>
                 </>
               )}
+
+              <div>
+                <Flag languageName={to} />
+              </div>
 
               <Button
                 className={classes.btn}
