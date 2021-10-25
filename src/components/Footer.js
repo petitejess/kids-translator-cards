@@ -26,7 +26,7 @@ const Footer = () => {
         <Link color="inherit" href="https://mui.com/">
           Kids Translator Card
         </Link>
-        {" from Anna. Jessica. Vicky. 2020"}
+        {" from Ana. Jessica. Vicky. 2021"}
       </Typography>
     </div>
   );
