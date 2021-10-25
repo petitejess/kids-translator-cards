@@ -20,7 +20,7 @@ const Footer = () => {
     <div className={classes.footer}>
       <Typography variant="h5" color="#e6f0e7" align="center">
         {"Copyright © "}
-        <Link color="inherit" href="https://mui.com/">
+        <Link color="inherit" href="https://kids-translator-cards.netlify.app/">
           Kids' Translator Cards
         </Link>
         {" from Ana. Jessica. Vicky. 2021"}
