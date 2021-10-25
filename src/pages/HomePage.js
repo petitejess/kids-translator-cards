@@ -18,6 +18,10 @@ import Flag from "../components/Flag";
 import { formatInput } from "../utils/utils";
 
 const useStyles = makeStyles((theme) => ({
+  spacer: {
+    display: "block",
+    height: 20,
+  },
   col: {
     textAlign: "center",
     justifyContent: "center",
@@ -34,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     width: "80%",
     border: "solid 2px",
     borderRadius: 5,
+    resize: "vertical",
   },
   section: {
     display: "flex",
@@ -46,11 +51,13 @@ const useStyles = makeStyles((theme) => ({
   panel: {
     backgroundColor: "whitesmoke",
     width: 300,
-    height: 500,
+    minHeight: 500,
     margin: 10,
     marginTop: 100,
     padding: 30,
     border: "solid 1px gray",
+    justifyContent: "center",
+    textAlign: "center",
   },
   panelMini: {
     alignSelf: "center",
@@ -64,8 +71,7 @@ const useStyles = makeStyles((theme) => ({
   },
   btn: {
     backgroundColor: "#16c92e !important",
-    float: "right",
-    marginTop: 420,
+    width: "75%",
     "&:hover": {
       backgroundColor: "#42f5a7 !important",
     },
@@ -93,22 +99,20 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
         Accept: "application/json",
       },
     })
-    .then((response) => response.json())
-    .then((data) => {
-      setLanguages(data.text);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        setLanguages(data.text);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   const handleFromChange = (e) => {
-    console.log("From Changed: " + e.target.value);
     setFrom(e.target.value);
   };
 
   const handleToChange = (e) => {
-    console.log("To Changed: " + e.target.value);
     setTo(e.target.value);
   };
 
@@ -219,11 +223,13 @@ const HomePage = ({ setWordToTranslate, setTranslateFrom, setTranslateTo }) => {
               <div>
                 <Flag languageName={to} />
               </div>
-
+              <div className={classes.spacer}></div>
+              <div className={classes.spacer}></div>
               <Button
                 className={classes.btn}
                 type="submit"
                 variant="contained"
+                sx={{ borderRadius: 10, padding: 2, fontSize: 19 }}
                 endIcon={<KeyboardArrowRightIcon />}
               >
                 Translate

@@ -93,13 +93,13 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
         Accept: "application/json",
       },
     })
-    .then((response) => response.json())
-    .then((data) => {
-      setLanguages(data.text);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        setLanguages(data.text);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
 
     axios
       .request(translateApiOption(wordToTranslate, translateFrom, translateTo))
@@ -120,8 +120,6 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
     // setImageQuery("chicken");
   }, [wordToTranslate, translateFrom, translateTo, translateResult]);
 
-  console.log(translateResult);
-
   const handleResultOnClick = () => {
     history.push("/");
   };
@@ -135,8 +133,15 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
         <Box className={classes.col} order="1" p={1} m={2}>
           <Typography variant="h3">{wordToTranslate}</Typography>
 
-          {translateFrom && languages.length > 0 &&
-          <Flag languageName={languages.filter((lang) => lang["code"] === translateFrom)[0]["language"]} />}
+          {translateFrom && languages.length > 0 && (
+            <Flag
+              languageName={
+                languages.filter((lang) => lang["code"] === translateFrom)[0][
+                  "language"
+                ]
+              }
+            />
+          )}
         </Box>
 
         {/* <h2>{console.log(languages)}</h2> */}
@@ -150,7 +155,15 @@ const ResultPage = ({ wordToTranslate, translateFrom, translateTo }) => {
         <Box className={classes.col} order="3" p={1} m={2}>
           <Typography variant="h3">{translateResult}</Typography>
 
-          {translateTo && languages.length > 0 && <Flag languageName={languages.filter((lang) => lang["code"] === translateTo)[0]["language"]} />}
+          {translateTo && languages.length > 0 && (
+            <Flag
+              languageName={
+                languages.filter((lang) => lang["code"] === translateTo)[0][
+                  "language"
+                ]
+              }
+            />
+          )}
         </Box>
       </div>
 
