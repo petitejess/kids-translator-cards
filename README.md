@@ -14,6 +14,8 @@ Simple web app built with React, where kids can translate words from many langua
 
 ## User Interface
 
+![Kids Translator Cards](./docs/kids-translation-cards-demo.gif)
+
 The layout of the web app is designed for children to easily use. The images displayed are in a form of illustrations.
 
 The homepage has two cards, one for the source language of the word that is to be translated and another one for the target language.
