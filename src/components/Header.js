@@ -62,7 +62,7 @@ function Header({ title, imageQuery }) {
         <Grid item xs={8}>
           <div className={classes.break}></div>
           <div className={classes.heroText}>
-            <Typography align="center" variant="h2" component="div">
+            <Typography align="center" variant="h2" component="div" sx={{ fontWeight: '700', textShadow: '5px 2px 10px #000' }}>
               {title}
             </Typography>
           </div>

@@ -26,9 +26,11 @@ const Flag = ({ languageName }) => {
     fetch(`https://restcountries.com/v3.1/lang/${languageName.toLowerCase()}`)
       .then((response) => response.json())
       .then((data) => {
-        languageName === "English"
-          ? setCompleteData(data[57].flags.png)
-          : setCompleteData(data[0].flags.png);
+        if (languageName === "English") {
+          data.map(datum => datum.name.official === "Commonwealth of Australia" && setCompleteData(datum.flags.png));
+        } else {
+          setCompleteData(data[0].flags.png);
+        }
       })
       .catch((err) => {
         console.error(err);
@@ -39,7 +41,7 @@ const Flag = ({ languageName }) => {
     <div className={classes.flagContainer}>
       {typeof completeData == "string" && (
         <Avatar
-          alt="Remy Sharp"
+          alt="Country Flag"
           sx={{ width: 150, height: 150 }}
           src={completeData}
         />
